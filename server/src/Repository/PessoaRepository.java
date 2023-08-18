@@ -9,42 +9,42 @@ public class PessoaRepository {
 
     private HashMap<String, Pessoa> pessoas = new HashMap<>();
 
-    public void addPessoa(Pessoa p) {
-        pessoas.put(p.getCpf(), p);
+    public void insert(Pessoa pessoa) {
+        pessoas.put(pessoa.getCpf(), pessoa);
     }
 
-    public void updatePessoa(Pessoa p) throws Exception{
-        try {
-            Pessoa pessoa = getPessoa(p.getCpf());
-            pessoa.setNome(p.getNome());
-            pessoa.setEndereco(p.getEndereco());
-            pessoas.put(pessoa.getCpf(), pessoa);
-        } catch (Exception e){
+    public void update(Pessoa pessoa) throws Exception {
+        if (pessoas.containsKey(pessoa.getCpf())) {
+            pessoas.replace(pessoa.getCpf(), pessoa);
+        } else {
             throw new Exception("Pessoa não encontrada.");
         }
     }
 
-    public void removePessoa(String cpf) throws Exception{
-        if(!pessoas.isEmpty()){
-            try{
+    public void delete(String cpf) throws Exception {
+        if (!pessoas.isEmpty()) {
+            if (pessoas.containsKey(cpf)) {
                 pessoas.remove(cpf);
-            } catch (Exception e){
-                throw new Exception("Pessoa não encontada.");
+            } else
+                throw new Exception("Pessoa não encontrada.");
+        } else {
+            throw new Exception("Sem pessoas cadastradas.");
+        }
+    }
+
+    public Pessoa get(String cpf) throws Exception {
+        if (!pessoas.isEmpty()) {
+            if (pessoas.containsKey(cpf)) {
+                return pessoas.get(cpf);
+            } else {
+                throw new Exception("Pessoa não encontrada");
             }
         } else {
             throw new Exception("Sem pessoas cadastradas.");
         }
     }
 
-    public Pessoa getPessoa(String cpf) throws Exception{
-        try {
-            return pessoas.get(cpf);
-        } catch (Exception e){
-            throw new Exception("Pessoa não encontrada.");
-        }
-    }
-
-    public List getAllPessoas() {
+    public List getAll() {
         return (List) pessoas.values();
     }
 }

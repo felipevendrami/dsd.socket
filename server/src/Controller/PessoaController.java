@@ -6,9 +6,8 @@ import Server.ServerObserver;
 
 import java.util.List;
 
-public class PessoaController implements Operacoes{
+public class PessoaController implements OperacoesController {
 
-    final String OP_LIST = "LIST";
     private ServerObserver server;
     private PessoaRepository pessoaRepository = new PessoaRepository();
 
@@ -17,33 +16,22 @@ public class PessoaController implements Operacoes{
     }
 
     @Override
-    public void definirOperacao(String[] arrayDados) {
-        switch (arrayDados[0]){
-            case OP_INSERT -> insert(arrayDados);
-            case OP_UPDATE -> update(arrayDados);
-            case OP_DELETE -> update(arrayDados);
-            case OP_GET -> get(arrayDados);
-            case OP_LIST -> list();
-            default -> server.retornaMensagemCliente("Operação não encontrada.");
-        }
-    }
-
-    @Override
     public void insert(String[] arrayDados) {
         Pessoa pessoa = new Pessoa(arrayDados[1].trim());
         pessoa.setNome(arrayDados[2].trim());
         pessoa.setEndereco(arrayDados[3].trim());
-        pessoaRepository.addPessoa(pessoa);
+        pessoaRepository.insert(pessoa);
     }
 
     @Override
-    public void update(String[] arrayDados){
-        try{
+    public void update(String[] arrayDados) {
+        try {
             Pessoa pessoa = new Pessoa(arrayDados[1].trim());
             pessoa.setNome(arrayDados[2].trim());
             pessoa.setEndereco(arrayDados[3].trim());
-            pessoaRepository.updatePessoa(pessoa);
-        } catch (Exception e){
+            pessoaRepository.update(pessoa);
+            server.retornaMensagemCliente("Pessoa atualizada com sucesso.");
+        } catch (Exception e) {
             server.retornaMensagemCliente(e.getMessage());
         }
 
@@ -52,33 +40,39 @@ public class PessoaController implements Operacoes{
     @Override
     public void delete(String[] arrayDados) {
         try {
-            pessoaRepository.removePessoa(arrayDados[1]);
-        } catch (Exception e){
+            pessoaRepository.delete(arrayDados[1]);
+            server.retornaMensagemCliente("Pessoa removida com sucesso.");
+        } catch (Exception e) {
             server.retornaMensagemCliente(e.getMessage());
         }
     }
 
     @Override
     public void get(String[] arrayDados) {
-        try{
-            Pessoa pessoa = pessoaRepository.getPessoa(arrayDados[1]);
+        try {
+            Pessoa pessoa = pessoaRepository.get(arrayDados[1]);
             server.retornaMensagemCliente(pessoa.toString());
-        } catch (Exception e){
+        } catch (Exception e) {
             server.retornaMensagemCliente(e.getMessage());
         }
     }
 
-    public void list(){
-        String retorno = "";
-        List<Pessoa> pessoas = pessoaRepository.getAllPessoas();
-        if(pessoas.size() > 0){
-            retorno += pessoas.size() + "\n";
-            for(Pessoa p : pessoas){
-                retorno += p.toString() + "\n";
-            }
+    public void getAll() {
+        List<Pessoa> pessoas = pessoaRepository.getAll();
+        if (pessoas.size() > 0) {
+            server.retornaMensagemCliente(String.valueOf(pessoas.size()));
+            pessoas.forEach(pessoa -> server.retornaMensagemCliente(pessoa.toString()));
         } else {
-            retorno = "0";
+            server.retornaMensagemCliente("0");
         }
-        server.retornaMensagemCliente(retorno);
+    }
+
+    public Pessoa getPessoa(String cpf){
+        try{
+            return pessoaRepository.get(cpf);
+        } catch (Exception e){
+            server.retornaMensagemCliente(e.getMessage());
+        }
+        return null;
     }
 }

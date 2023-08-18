@@ -7,7 +7,7 @@ public class Setor {
 
     private String nomeSetor;
     private String nomeEmpresa;
-    private int qtdEmpregados;
+    private int qtdEmpregados = 0;
     private List<Pessoa> integrantes = new ArrayList<>();
 
     public Setor(String nomeSetor) {
@@ -16,11 +16,15 @@ public class Setor {
 
     public void addIntegrante(Pessoa p){
         integrantes.add(p);
+        qtdEmpregados += 1;
     }
 
     public void removeIntegrante(Pessoa p){
         integrantes.remove(p);
+        qtdEmpregados -= 1;
     }
+
+    public List getIntegrantes(){return integrantes;}
 
     public String getNomeSetor() {
         return nomeSetor;
@@ -54,7 +58,7 @@ public class Setor {
         return nomeEmpresa + ", " + nomeSetor + ", Nº Funcionários: " + qtdEmpregados;
     }
 
-    public String toString(int codigo) {
-        return nomeEmpresa + ": " + codigo + " - " + " nomeSetor";
+    public String toString(String codigo) {
+        return nomeEmpresa + ": " + codigo + " - " + nomeSetor + " - " + qtdEmpregados + " empregados";
     }
 }
