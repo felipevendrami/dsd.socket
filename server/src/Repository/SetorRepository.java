@@ -15,12 +15,18 @@ public class SetorRepository {
         return this.sequence;
     }
 
-    public void insert(Setor setor) {
-        setores.put(sequence++, setor);
+    public void insert(Setor setor) throws Exception {
+        try {
+            setores.put(sequence++, setor);
+        } catch (Exception e) {
+            throw new Exception("Erro no cadastro, verifique os dados.");
+        }
     }
 
     public void update(Setor setor, int codigo) throws Exception {
         if (setores.containsKey(codigo)) {
+            setor.setIntegrantes(setores.get(codigo).getIntegrantes());
+            setor.setQtdEmpregados(setores.get(codigo).getQtdEmpregados());
             setores.replace(codigo, setor);
         } else {
             throw new Exception("Setor não encontrado");
@@ -30,13 +36,13 @@ public class SetorRepository {
     public void delete(int codigo) throws Exception {
         if (!setores.isEmpty()) {
             if (setores.containsKey(codigo)) {
-                if (setores.get(codigo).getQtdEmpregados() != 0) {
+                if (setores.get(codigo).getQtdEmpregados() == 0) {
                     setores.remove(codigo);
                 } else {
                     throw new Exception("Não foi possível excluir o setor pois há pessoas relacionadas a ele.");
                 }
             } else {
-                throw new Exception("Setor não encontrado");
+                throw new Exception("Setor não encontrado.");
             }
         } else {
             throw new Exception("Sem setores cadastrados.");
@@ -63,17 +69,23 @@ public class SetorRepository {
         try {
             Setor setor = get(codigo);
             setor.addIntegrante(pessoa);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    public void removeIntegrante(int codigo, Pessoa pessoa) throws Exception{
-        try {
-            Setor setor = get(codigo);
-            setor.removeIntegrante(pessoa);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
+    public void removeIntegrante(int codigo, Pessoa pessoa) throws Exception {
+        if(setores.get(codigo).getIntegrantes().contains(pessoa)){
+            try {
+                Setor setor = get(codigo);
+                setor.removeIntegrante(pessoa);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        } else{
+            throw new Exception("Pessoa informada não faz parte do setor.");
         }
+
+
     }
 }

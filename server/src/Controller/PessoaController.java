@@ -17,10 +17,14 @@ public class PessoaController implements OperacoesController {
 
     @Override
     public void insert(String[] arrayDados) {
-        Pessoa pessoa = new Pessoa(arrayDados[1].trim());
-        pessoa.setNome(arrayDados[2].trim());
-        pessoa.setEndereco(arrayDados[3].trim());
-        pessoaRepository.insert(pessoa);
+        try{
+            Pessoa pessoa = new Pessoa(arrayDados[1].trim());
+            pessoa.setNome(arrayDados[2].trim());
+            pessoa.setEndereco(arrayDados[3].trim());
+            pessoaRepository.insert(pessoa);
+        } catch (Exception e){
+            server.retornaMensagemCliente(e.getMessage());
+        }
     }
 
     @Override

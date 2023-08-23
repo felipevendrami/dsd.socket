@@ -2,6 +2,7 @@ package Repository;
 
 import Model.Pessoa;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,8 +10,12 @@ public class PessoaRepository {
 
     private HashMap<String, Pessoa> pessoas = new HashMap<>();
 
-    public void insert(Pessoa pessoa) {
-        pessoas.put(pessoa.getCpf(), pessoa);
+    public void insert(Pessoa pessoa) throws Exception {
+        try{
+            pessoas.put(pessoa.getCpf(), pessoa);
+        } catch (Exception e){
+            throw new Exception("Houve um problema na inserção.");
+        }
     }
 
     public void update(Pessoa pessoa) throws Exception {
@@ -37,7 +42,7 @@ public class PessoaRepository {
             if (pessoas.containsKey(cpf)) {
                 return pessoas.get(cpf);
             } else {
-                throw new Exception("Pessoa não encontrada");
+                throw new Exception("Pessoa não encontrada.");
             }
         } else {
             throw new Exception("Sem pessoas cadastradas.");
@@ -45,6 +50,7 @@ public class PessoaRepository {
     }
 
     public List getAll() {
-        return (List) pessoas.values();
+        List<Pessoa> pessoasArrayList = new ArrayList<>(pessoas.values());
+        return pessoasArrayList;
     }
 }

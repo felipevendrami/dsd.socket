@@ -50,10 +50,14 @@ public class SetorController implements OperacoesController {
 
     @Override
     public void insert(String[] arrayDados) {
-        Setor setor = new Setor(arrayDados[1].trim());
-        setor.setNomeSetor(arrayDados[2].trim());
-        setorRepository.insert(setor);
-        server.retornaMensagemCliente("Setor: " + (setorRepository.getSequence() - 1) + " - " + setor.getNomeSetor());
+        try {
+            Setor setor = new Setor(arrayDados[1].trim());
+            setor.setNomeEmpresa(arrayDados[2].trim());
+            setorRepository.insert(setor);
+            server.retornaMensagemCliente(setor.toString(String.valueOf(setorRepository.getSequence()-1)));
+        } catch (Exception e){
+            server.retornaMensagemCliente(e.getMessage());
+        }
     }
 
     @Override

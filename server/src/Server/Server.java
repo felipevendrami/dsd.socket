@@ -40,15 +40,29 @@ public class Server implements ServerObserver {
                     System.out.println("Aguardando interação...");
                     String msgCliente = bufferedReader.readLine();
                     operacao(utilString(msgCliente));
-                    System.out.println("Operação finalizada.");
+                    System.out.println("Conexão fechada.");
                 } catch (IOException e) {
                     throw new IOException(e.getMessage());
+                } finally {
+                    conn.close();
                 }
             }
         } catch (IOException e) {
             System.out.println("Ocorreu erro no servido.");
             e.printStackTrace();
         }
+    }
+
+    // PARA TESTES
+    public void operacaoTeste(String msg) throws Exception {
+        try {
+            operacao(utilString(msg));
+            System.out.println("Operação realizada com sucesso.");
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+
     }
 
     private void operacao(String[] arrayString) {
@@ -65,7 +79,8 @@ public class Server implements ServerObserver {
             case "LIST_SETOR" -> setorController.getAll();
             case "ADD" -> {
                 Pessoa pessoa = pessoaController.getPessoa(arrayString[2]);
-                setorController.add(arrayString[1], pessoa);
+                if(pessoa != null)
+                    setorController.add(arrayString[1], pessoa);
             }
             case "REMOVE" -> {
                 Pessoa pessoa = pessoaController.getPessoa(arrayString[2]);
@@ -84,6 +99,6 @@ public class Server implements ServerObserver {
     @Override
     public void retornaMensagemCliente(String mensagem) {
         System.out.println(mensagem);
-        printWriter.print(mensagem);
+        //printWriter.print(mensagem);
     }
 }

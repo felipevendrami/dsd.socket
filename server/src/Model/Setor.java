@@ -26,6 +26,10 @@ public class Setor {
 
     public List getIntegrantes(){return integrantes;}
 
+    public void setIntegrantes(List<Pessoa> integrantes){
+        this.integrantes = integrantes;
+    }
+
     public String getNomeSetor() {
         return nomeSetor;
     }
