@@ -16,12 +16,12 @@ public class Setor {
 
     public void addIntegrante(Pessoa p){
         integrantes.add(p);
-        qtdEmpregados += 1;
+        qtdEmpregados = integrantes.size();
     }
 
     public void removeIntegrante(Pessoa p){
         integrantes.remove(p);
-        qtdEmpregados -= 1;
+        qtdEmpregados = integrantes.size();
     }
 
     public List getIntegrantes(){return integrantes;}

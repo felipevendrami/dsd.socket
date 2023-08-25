@@ -19,7 +19,7 @@ public class Server implements ServerObserver {
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
 
-    public Server() throws SocketException {
+    public Server() {
         this.pessoaController = new PessoaController(this);
         this.setorController = new SetorController(this);
     }
@@ -48,21 +48,18 @@ public class Server implements ServerObserver {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Ocorreu erro no servido.");
+            retornaMensagemCliente("Ocorreu erro no servidor.");
             e.printStackTrace();
         }
     }
 
-    // PARA TESTES
-    public void operacaoTeste(String msg) throws Exception {
+    // PARA POPULAR AS LISTAS
+    public void popularListas(String msg) throws Exception {
         try {
             operacao(utilString(msg));
-            System.out.println("Operação realizada com sucesso.");
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
-
     }
 
     private void operacao(String[] arrayString) {
@@ -78,13 +75,23 @@ public class Server implements ServerObserver {
             case "GET_SETOR" -> setorController.get(arrayString);
             case "LIST_SETOR" -> setorController.getAll();
             case "ADD" -> {
-                Pessoa pessoa = pessoaController.getPessoa(arrayString[2]);
-                if(pessoa != null)
-                    setorController.add(arrayString[1], pessoa);
+                try{
+                    Pessoa pessoa = pessoaController.getPessoa(arrayString[2]);
+                    if(pessoa != null)
+                        setorController.add(arrayString[1], pessoa);
+                } catch (Exception e){
+                    retornaMensagemCliente(e.getMessage());
+                }
             }
             case "REMOVE" -> {
-                Pessoa pessoa = pessoaController.getPessoa(arrayString[2]);
-                setorController.remove(arrayString[1], pessoa);
+                try{
+                    Pessoa pessoa = pessoaController.getPessoa(arrayString[2]);
+                    if(pessoa != null){
+                        setorController.remove(arrayString[1], pessoa);
+                    }
+                } catch (Exception e){
+                    retornaMensagemCliente(e.getMessage());
+                }
             }
             default -> retornaMensagemCliente("Operação não encontrada.");
         }
@@ -99,6 +106,7 @@ public class Server implements ServerObserver {
     @Override
     public void retornaMensagemCliente(String mensagem) {
         System.out.println(mensagem);
+        // DESCOMENTAR PARA MANDAR MENSAGEM AO CLIENT
         //printWriter.print(mensagem);
     }
 }

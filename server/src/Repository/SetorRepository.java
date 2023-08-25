@@ -69,23 +69,23 @@ public class SetorRepository {
         try {
             Setor setor = get(codigo);
             setor.addIntegrante(pessoa);
+            pessoa.setSetor(setor);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     public void removeIntegrante(int codigo, Pessoa pessoa) throws Exception {
-        if(setores.get(codigo).getIntegrantes().contains(pessoa)){
-            try {
-                Setor setor = get(codigo);
+        try{
+            Setor setor = get(codigo);
+            if(setor.getIntegrantes().contains(pessoa)){
                 setor.removeIntegrante(pessoa);
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
+                pessoa.setSetor(null);
+            } else {
+                throw new Exception("Pessoa informada não faz parte do setor.");
             }
-        } else{
-            throw new Exception("Pessoa informada não faz parte do setor.");
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
         }
-
-
     }
 }

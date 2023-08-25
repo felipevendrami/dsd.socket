@@ -29,6 +29,8 @@ public class PessoaRepository {
     public void delete(String cpf) throws Exception {
         if (!pessoas.isEmpty()) {
             if (pessoas.containsKey(cpf)) {
+                Pessoa pessoa = get(cpf);
+                pessoa.getSetor().removeIntegrante(pessoa);
                 pessoas.remove(cpf);
             } else
                 throw new Exception("Pessoa não encontrada.");

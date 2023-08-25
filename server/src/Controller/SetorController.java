@@ -19,8 +19,12 @@ public class SetorController implements OperacoesController {
 
     public void add(String codigo, Pessoa pessoa) {
         try {
-            setorRepository.addIntegrante(Integer.parseInt(codigo), pessoa);
-            server.retornaMensagemCliente("Pessoa incluída no setor com sucesso.");
+            if(pessoa.getSetor() == null){
+                setorRepository.addIntegrante(Integer.parseInt(codigo), pessoa);
+                server.retornaMensagemCliente("Pessoa incluída no setor com sucesso.");
+            } else {
+                throw new Exception("Pessoa já está associada a um setor.");
+            }
         } catch (Exception e) {
             server.retornaMensagemCliente(e.getMessage());
         }
@@ -92,6 +96,4 @@ public class SetorController implements OperacoesController {
             server.retornaMensagemCliente(e.getMessage());
         }
     }
-
-
 }
