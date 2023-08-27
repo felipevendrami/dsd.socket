@@ -8,6 +8,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         Server server = new Server();
+        server.start(); //DESCONMENTAR PARA LIGAR O SERVIDOR
 
         // POPULAR LISTAS
         server.popularListas("insert;111;Mário Costa;Av Araújo");
@@ -34,8 +35,5 @@ public class App {
                 e.printStackTrace();
             }
         }
-
-        // DESCONMENTAR PARA LIGAR O SERVIDOR
-        //server.start();
     }
 }
