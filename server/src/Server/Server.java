@@ -107,6 +107,6 @@ public class Server implements ServerObserver {
     public void retornaMensagemCliente(String mensagem) {
         System.out.println(mensagem);
         // DESCOMENTAR PARA MANDAR MENSAGEM AO CLIENT
-        //printWriter.print(mensagem);
+        printWriter.print(mensagem);
     }
 }

@@ -10,7 +10,6 @@ public class SetorRepository {
     private int sequence = 1;
     private HashMap<Integer, Setor> setores = new HashMap<Integer, Setor>();
 
-
     public int getSequence() {
         return this.sequence;
     }
