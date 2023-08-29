@@ -52,8 +52,8 @@ public class Client {
     }
 
     private static void executaCliente() {
-
         Scanner s = new Scanner(System.in);
+        s.useDelimiter("\n");
 
         System.out.println("Escolha uma opção para continuar: \n"
                 + "1 - Pessoa \n"
@@ -78,6 +78,8 @@ public class Client {
     private static void editPessoa() {
 
         Scanner s = new Scanner(System.in);
+        s.useDelimiter("\n");
+
 
         do {
             String cpf;
@@ -85,9 +87,9 @@ public class Client {
             String endereco;
             String comando;
 
-            System.out.print("====================================");
-            System.out.print("Manutenção de Pessoa");
-            System.out.print("Selecione uma opção para continuar: \n"
+            System.out.println("====================================");
+            System.out.println("Manutenção de Pessoa");
+            System.out.println("Selecione uma opção para continuar: \n"
                     + "1 - Inserir \n"
                     + "2 - Atualizar \n"
                     + "3 - Obter \n"
@@ -98,20 +100,15 @@ public class Client {
 
             int opcao = s.nextInt();
 
-            if (opcao == 6) {
-                executaCliente();
-                return;
-            }
-
             switch (opcao) {
                 case 1:
-                    System.out.print("====================================");
-                    System.out.print("Inserir Pessoa");
-                    System.out.print("Informe o CPF");
+                    System.out.println("====================================");
+                    System.out.println("Inserir Pessoa");
+                    System.out.println("Informe o CPF");
                     cpf = s.next().trim();
-                    System.out.print("Informe o nome");
+                    System.out.println("Informe o nome");
                     nome = s.next().trim();
-                    System.out.print("Informe o endereço");
+                    System.out.println("Informe o endereço");
                     endereco = s.next().trim();
 
                     comando = "INSERT;"
@@ -123,13 +120,13 @@ public class Client {
                     break;
 
                 case 2:
-                    System.out.print("====================================");
-                    System.out.print("Atualizar Pessoa");
-                    System.out.print("Informe o CPF");
+                    System.out.println("====================================");
+                    System.out.println("Atualizar Pessoa");
+                    System.out.println("Informe o CPF");
                     cpf = s.next().trim();
-                    System.out.print("Informe o nome");
+                    System.out.println("Informe o nome");
                     nome = s.next().trim();
-                    System.out.print("Informe o endereço");
+                    System.out.println("Informe o endereço");
                     endereco = s.next().trim();
 
                     comando = "UPDATE;"
@@ -142,9 +139,9 @@ public class Client {
                     break;
 
                 case 3:
-                    System.out.print("====================================");
-                    System.out.print("Obter Pessoa");
-                    System.out.print("Informe o CPF");
+                    System.out.println("====================================");
+                    System.out.println("Obter Pessoa");
+                    System.out.println("Informe o CPF");
                     cpf = s.next().trim();
 
                     comando = "GET;"
@@ -155,9 +152,9 @@ public class Client {
                     break;
 
                 case 4:
-                    System.out.print("====================================");
-                    System.out.print("Remover Pessoa");
-                    System.out.print("Informe o CPF");
+                    System.out.println("====================================");
+                    System.out.println("Remover Pessoa");
+                    System.out.println("Informe o CPF");
                     cpf = s.next().trim();
 
                     comando = "DELETE;"
@@ -168,12 +165,20 @@ public class Client {
                     break;
 
                 case 5:
-                    System.out.print("====================================");
-                    System.out.print("Listar Pessoas");
+                    System.out.println("====================================");
+                    System.out.println("Listar Pessoas");
                     comando = "LIST";
                     //TODO enviar o comando!
                     //TODO receber string!
                     break;
+
+                case 6:
+                    //executaCliente();
+                    return;
+
+                default:
+                    System.out.println("Por favor, informe uma opção válida!");
+                    return;
             }
         } while (true);
     }
@@ -181,6 +186,7 @@ public class Client {
     private static void editSetor() {
 
         Scanner s = new Scanner(System.in);
+        s.useDelimiter("\n");
 
         do {
             String cpf;
@@ -188,12 +194,13 @@ public class Client {
             String endereco;
             String nomeSetor;
             String nomeEmpresa;
+            int codigoSetor;
             int qtdEmpregados;
             String comando;
 
-            System.out.print("====================================");
-            System.out.print("Manutenção de Setor");
-            System.out.print("Selecione uma opção para continuar: \n"
+            System.out.println("====================================");
+            System.out.println("Manutenção de Setor");
+            System.out.println("Selecione uma opção para continuar: \n"
                     + "1 - Inserir \n"
                     + "2 - Atualizar \n"
                     + "3 - Obter \n"
@@ -206,18 +213,13 @@ public class Client {
 
             int opcao = s.nextInt();
 
-            if (opcao == 8) {
-                executaCliente();
-                return;
-            }
-
             switch (opcao) {
                 case 1:
-                    System.out.print("====================================");
-                    System.out.print("Inserir Setor");
-                    System.out.print("Informe o nome do Setor");
+                    System.out.println("====================================");
+                    System.out.println("Inserir Setor");
+                    System.out.println("Informe o nome do Setor");
                     nomeSetor = s.next().trim();
-                    System.out.print("Informe o nome da Empresa");
+                    System.out.println("Informe o nome da Empresa");
                     nomeEmpresa = s.next().trim();
 
                     comando = "INSERT_SETOR;"
@@ -229,21 +231,97 @@ public class Client {
                     break;
 
                 case 2:
-                    //TODO arrumar
-                    System.out.print("====================================");
-                    System.out.print("Atualizar Setor");
-                    System.out.print("Informe o nome do Setor");
+                    System.out.println("====================================");
+                    System.out.println("Atualizar Setor");
+                    System.out.println("Informe o código do Setor");
+                    codigoSetor = s.nextInt();
+                    System.out.println("Informe o nome do Setor");
                     nomeSetor = s.next().trim();
-                    System.out.print("Informe o nome da Empresa");
+                    System.out.println("Informe o nome da Empresa");
                     nomeEmpresa = s.next().trim();
 
                     comando = "INSERT_SETOR;"
+                            + codigoSetor + ";"
                             + nomeSetor + ";"
                             + nomeEmpresa;
 
                     //TODO enviar o comando!
                     //TODO receber string!
                     break;
+
+                case 3:
+                    System.out.println("====================================");
+                    System.out.println("Obter Setor");
+                    System.out.println("Informe o código do Setor");
+                    codigoSetor = s.nextInt();
+
+                    comando = "GET_SETOR;"
+                            + codigoSetor;
+                    //TODO enviar o comando!
+                    //TODO receber string!
+                    break;
+
+                case 4:
+                    System.out.println("====================================");
+                    System.out.println("Remover Setor");
+                    System.out.println("Informe o código do Setor");
+                    codigoSetor = s.nextInt();
+
+                    comando = "DELETE_SETOR;"
+                            + codigoSetor;
+                    //TODO enviar o comando!
+                    //TODO receber string!
+                    break;
+
+                case 5:
+                    System.out.println("====================================");
+                    System.out.println("Listando Setores");
+
+                    comando = "LIST_SETOR";
+
+                    //TODO enviar o comando!
+                    //TODO receber string!
+                    break;
+
+                case 6:
+                    System.out.println("====================================");
+                    System.out.println("Adicionar Pessoa ao Setor");
+                    System.out.println("Informe o código do Setor");
+                    codigoSetor = s.nextInt();
+                    System.out.println("Informe o CPF da Pessoa");
+                    cpf = s.next().trim();
+
+                    comando = "ADD;"
+                            + codigoSetor  + ";"
+                            + cpf;
+
+                    //TODO enviar o comando!
+                    //TODO receber string!
+                    break;
+
+                case 7:
+                    System.out.println("====================================");
+                    System.out.println("Remover Pessoa do Setor");
+                    System.out.println("Informe o código do Setor");
+                    codigoSetor = s.nextInt();
+                    System.out.println("Informe o CPF da Pessoa");
+                    cpf = s.next().trim();
+
+                    comando = "REMOVE;"
+                            + codigoSetor  + ";"
+                            + cpf;
+
+                    //TODO enviar o comando!
+                    //TODO receber string!
+                    break;
+
+                case 8:
+                    //executaCliente();
+                    return;
+
+                default:
+                    System.out.println("Por favor, informe uma opção válida!");
+                    return;
             }
         } while (true);
 
