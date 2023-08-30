@@ -42,7 +42,7 @@ public class SetorController implements OperacoesController {
     public void getAll() {
         HashMap<Integer, Setor> setores = setorRepository.getAll();
         if (!setores.isEmpty()) {
-            server.retornaMensagemCliente(setores.size() + " setores cadastrados:");
+            server.retornaMensagemCliente(setores.size() + " setor(es) cadastrados:");
             setores.forEach((codigo, setor) -> {
                 server.retornaMensagemCliente(setor.toString(String.valueOf(codigo)));
                 setor.getIntegrantes().forEach(pessoa -> server.retornaMensagemCliente(pessoa.toString()));

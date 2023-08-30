@@ -30,7 +30,9 @@ public class PessoaRepository {
         if (!pessoas.isEmpty()) {
             if (pessoas.containsKey(cpf)) {
                 Pessoa pessoa = get(cpf);
-                pessoa.getSetor().removeIntegrante(pessoa);
+                if (pessoa.getSetor() != null){
+                    pessoa.getSetor().removeIntegrante(pessoa);
+                }
                 pessoas.remove(cpf);
             } else
                 throw new Exception("Pessoa não encontrada.");

@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Scanner;
 
 public class Server implements ServerObserver {
 
@@ -26,7 +27,12 @@ public class Server implements ServerObserver {
 
     public void start() throws IOException {
         try {
-            ServerSocket server = new ServerSocket(1010);
+            Scanner s = new Scanner(System.in);
+            s.useDelimiter("\n");
+            System.out.println("Por favor, informe a porta para inicializar o servidor");
+            int serverPort = s.nextInt();
+
+            ServerSocket server = new ServerSocket(serverPort);
             server.setReuseAddress(true);
             Socket conn = null;
             while (true) {
@@ -105,8 +111,9 @@ public class Server implements ServerObserver {
 
     @Override
     public void retornaMensagemCliente(String mensagem) {
-        System.out.println(mensagem);
-        // DESCOMENTAR PARA MANDAR MENSAGEM AO CLIENT
-        printWriter.print(mensagem);
+        if (this.printWriter != null){
+            System.out.println(mensagem);
+            printWriter.println(mensagem);  // DESCOMENTAR PARA MANDAR MENSAGEM AO CLIENT
+        }
     }
 }

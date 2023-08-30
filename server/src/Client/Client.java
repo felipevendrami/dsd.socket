@@ -1,87 +1,69 @@
 package Client;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
 
     public static void main(String[] args) throws IOException {
+        menuInicial();
+    }
 
-        Scanner scan = new Scanner(System.in);
-        scan.useDelimiter("\n");
-        Socket conn = null;
-        System.out.println("Buscando conexão...");
+    private static void menuInicial() throws IOException {
+        try{
+            Scanner s = new Scanner(System.in);
+            s.useDelimiter("\n");
 
-        try {
-            conn = new Socket("192.168.0.108", 1010);
-            System.out.println("Conexão com o servidor estabelecida.");
-            PrintWriter output = new PrintWriter(conn.getOutputStream(), true);
-            BufferedReader input = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            System.out.println("Por favor, informe o IP do servidor");
+            String serverIp = s.next();
+            System.out.println("Por favor, informe a porta do servidor");
+            int serverPort = s.nextInt();
 
-            while (true) {
-//                System.out.println("Aguardando mensagem");
-//                String inputMsg = input.readLine();
-//                if (inputMsg == null){
-//                    System.out.println("Conexão encerrada pelo servidor.");
-//                    break;
-//                }
-//
-//                System.out.println("Mensagem recebida: " + inputMsg);
+            executaCliente(serverIp, serverPort);
 
-                System.out.println("Digite a mensagem");
-                String outputMsg = scan.nextLine();
-                if (outputMsg.equalsIgnoreCase("Sair")) {
-                    break;
-                }
-
-                output.println(outputMsg);
-            }
-        } catch (IOException e) {
-            System.out.println("Ocorreu um problema");
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.close();
-                System.out.println("Conexão encerrada");
-            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
-    private static void executaCliente() {
+    private static void executaCliente(String serverIp, int serverPort) throws IOException {
         Scanner s = new Scanner(System.in);
         s.useDelimiter("\n");
 
         System.out.println("Escolha uma opção para continuar: \n"
                 + "1 - Pessoa \n"
-                + "2 - Setor"
+                + "2 - Setor \n"
+                + "3 - Voltar"
         );
 
         int option = s.nextInt();
 
         switch (option) {
             case 1:
-                editPessoa();
+                editPessoa(serverIp, serverPort);
                 break;
             case 2:
-                editSetor();
+                editSetor(serverIp, serverPort);
+                break;
+            case 4:
+                menuInicial();
                 break;
             default:
                 System.out.println("Por favor, informe uma opção válida!");
-                return;
+                executaCliente(serverIp, serverPort);
+
+            s.close();
         }
     }
 
-    private static void editPessoa() {
+    private static void editPessoa(String serverIp, int serverPort) throws IOException {
 
-        Scanner s = new Scanner(System.in);
-        s.useDelimiter("\n");
-
+        ClientConnetion conn = new ClientConnetion();
 
         do {
+            Scanner s = new Scanner(System.in);
+            s.useDelimiter("\n");
+
             String cpf;
             String nome;
             String endereco;
@@ -102,6 +84,8 @@ public class Client {
 
             switch (opcao) {
                 case 1:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Inserir Pessoa");
                     System.out.println("Informe o CPF");
@@ -115,11 +99,14 @@ public class Client {
                             + cpf + ";"
                             + nome + ";"
                             + endereco;
-
-                    //TODO enviar o comando!
+                    conn.sendOutputMsg(comando);
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 2:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Atualizar Pessoa");
                     System.out.println("Informe o CPF");
@@ -134,11 +121,15 @@ public class Client {
                             + nome + ";"
                             + endereco;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 3:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Obter Pessoa");
                     System.out.println("Informe o CPF");
@@ -147,11 +138,15 @@ public class Client {
                     comando = "GET;"
                             + cpf;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 4:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Remover Pessoa");
                     System.out.println("Informe o CPF");
@@ -160,42 +155,52 @@ public class Client {
                     comando = "DELETE;"
                             + cpf;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 5:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Listar Pessoas");
                     comando = "LIST";
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 6:
-                    //executaCliente();
+                    s.close();
+                    executaCliente(serverIp, serverPort);
                     return;
 
                 default:
                     System.out.println("Por favor, informe uma opção válida!");
+                    s.close();
+                    editPessoa(serverIp, serverPort);
                     return;
             }
         } while (true);
     }
 
-    private static void editSetor() {
+    private static void editSetor(String serverIp, int serverPort) throws IOException {
 
-        Scanner s = new Scanner(System.in);
-        s.useDelimiter("\n");
+        ClientConnetion conn = new ClientConnetion();
 
         do {
+            Scanner s = new Scanner(System.in);
+            s.useDelimiter("\n");
+
             String cpf;
             String nome;
             String endereco;
             String nomeSetor;
             String nomeEmpresa;
             int codigoSetor;
-            int qtdEmpregados;
             String comando;
 
             System.out.println("====================================");
@@ -215,6 +220,8 @@ public class Client {
 
             switch (opcao) {
                 case 1:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Inserir Setor");
                     System.out.println("Informe o nome do Setor");
@@ -226,11 +233,15 @@ public class Client {
                             + nomeSetor + ";"
                             + nomeEmpresa;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 2:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Atualizar Setor");
                     System.out.println("Informe o código do Setor");
@@ -240,16 +251,20 @@ public class Client {
                     System.out.println("Informe o nome da Empresa");
                     nomeEmpresa = s.next().trim();
 
-                    comando = "INSERT_SETOR;"
+                    comando = "UPDATE_SETOR;"
                             + codigoSetor + ";"
                             + nomeSetor + ";"
                             + nomeEmpresa;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 3:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Obter Setor");
                     System.out.println("Informe o código do Setor");
@@ -257,11 +272,16 @@ public class Client {
 
                     comando = "GET_SETOR;"
                             + codigoSetor;
-                    //TODO enviar o comando!
-                    //TODO receber string!
+
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 4:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Remover Setor");
                     System.out.println("Informe o código do Setor");
@@ -269,21 +289,30 @@ public class Client {
 
                     comando = "DELETE_SETOR;"
                             + codigoSetor;
-                    //TODO enviar o comando!
-                    //TODO receber string!
+
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 5:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Listando Setores");
 
                     comando = "LIST_SETOR";
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 6:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Adicionar Pessoa ao Setor");
                     System.out.println("Informe o código do Setor");
@@ -295,11 +324,15 @@ public class Client {
                             + codigoSetor  + ";"
                             + cpf;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 7:
+                    conn.getConnection(serverIp, serverPort);
+
                     System.out.println("====================================");
                     System.out.println("Remover Pessoa do Setor");
                     System.out.println("Informe o código do Setor");
@@ -311,19 +344,23 @@ public class Client {
                             + codigoSetor  + ";"
                             + cpf;
 
-                    //TODO enviar o comando!
-                    //TODO receber string!
+                    conn.sendOutputMsg(comando);
+                    conn.getInputMsg();
+                    conn.closeConnection();
+                    s.close();
                     break;
 
                 case 8:
-                    //executaCliente();
+                    s.close();
+                    executaCliente(serverIp, serverPort);
                     return;
 
                 default:
                     System.out.println("Por favor, informe uma opção válida!");
+                    s.close();
+                    editSetor(serverIp, serverPort);
                     return;
             }
         } while (true);
-
     }
 }
