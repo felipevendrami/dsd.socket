@@ -59,7 +59,7 @@ public class Setor {
 
     @Override
     public String toString() {
-        return nomeEmpresa + ", " + nomeSetor + ", Nº Funcionários: " + qtdEmpregados;
+        return nomeEmpresa + ", " + nomeSetor + ", N Funcionarios: " + qtdEmpregados;
     }
 
     public String toString(String codigo) {

@@ -28,7 +28,7 @@ public class SetorRepository {
             setor.setQtdEmpregados(setores.get(codigo).getQtdEmpregados());
             setores.replace(codigo, setor);
         } else {
-            throw new Exception("Setor não encontrado");
+            throw new Exception("Setor nao encontrado");
         }
     }
 
@@ -38,10 +38,10 @@ public class SetorRepository {
                 if (setores.get(codigo).getQtdEmpregados() == 0) {
                     setores.remove(codigo);
                 } else {
-                    throw new Exception("Não foi possível excluir o setor pois há pessoas relacionadas a ele.");
+                    throw new Exception("Nao foi possivel excluir o setor pois ha pessoas relacionadas a ele.");
                 }
             } else {
-                throw new Exception("Setor não encontrado.");
+                throw new Exception("Setor nao encontrado.");
             }
         } else {
             throw new Exception("Sem setores cadastrados.");
@@ -53,7 +53,7 @@ public class SetorRepository {
             if (setores.containsKey(codigo)) {
                 return setores.get(codigo);
             } else {
-                throw new Exception("Setor não encontrado.");
+                throw new Exception("Setor nao encontrado.");
             }
         } else {
             throw new Exception("Nenhum setor cadastrado");
@@ -81,7 +81,7 @@ public class SetorRepository {
                 setor.removeIntegrante(pessoa);
                 pessoa.setSetor(null);
             } else {
-                throw new Exception("Pessoa informada não faz parte do setor.");
+                throw new Exception("Pessoa informada nao faz parte do setor.");
             }
         } catch (Exception e){
             throw new Exception(e.getMessage());

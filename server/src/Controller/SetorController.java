@@ -21,9 +21,9 @@ public class SetorController implements OperacoesController {
         try {
             if(pessoa.getSetor() == null){
                 setorRepository.addIntegrante(Integer.parseInt(codigo), pessoa);
-                server.retornaMensagemCliente("Pessoa incluída no setor com sucesso.");
+                server.retornaMensagemCliente("Pessoa incluida no setor com sucesso.");
             } else {
-                throw new Exception("Pessoa já está associada a um setor.");
+                throw new Exception("Pessoa ja esta associada a um setor.");
             }
         } catch (Exception e) {
             server.retornaMensagemCliente(e.getMessage());

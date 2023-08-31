@@ -49,7 +49,7 @@ public class Client {
                 menuInicial();
                 break;
             default:
-                System.out.println("Por favor, informe uma opção válida!");
+                System.out.println("Por favor, informe uma opção valida!");
                 executaCliente(serverIp, serverPort);
 
             s.close();
@@ -70,7 +70,7 @@ public class Client {
             String comando;
 
             System.out.println("====================================");
-            System.out.println("Manutenção de Pessoa");
+            System.out.println("Manutencao de Pessoa");
             System.out.println("Selecione uma opção para continuar: \n"
                     + "1 - Inserir \n"
                     + "2 - Atualizar \n"
@@ -92,7 +92,7 @@ public class Client {
                     cpf = s.next().trim();
                     System.out.println("Informe o nome");
                     nome = s.next().trim();
-                    System.out.println("Informe o endereço");
+                    System.out.println("Informe o endereco");
                     endereco = s.next().trim();
 
                     comando = "INSERT;"
@@ -113,7 +113,7 @@ public class Client {
                     cpf = s.next().trim();
                     System.out.println("Informe o nome");
                     nome = s.next().trim();
-                    System.out.println("Informe o endereço");
+                    System.out.println("Informe o endereco");
                     endereco = s.next().trim();
 
                     comando = "UPDATE;"
@@ -179,7 +179,7 @@ public class Client {
                     return;
 
                 default:
-                    System.out.println("Por favor, informe uma opção válida!");
+                    System.out.println("Por favor, informe uma opcao valida!");
                     s.close();
                     editPessoa(serverIp, serverPort);
                     return;
@@ -204,8 +204,8 @@ public class Client {
             String comando;
 
             System.out.println("====================================");
-            System.out.println("Manutenção de Setor");
-            System.out.println("Selecione uma opção para continuar: \n"
+            System.out.println("Manutencao de Setor");
+            System.out.println("Selecione uma opcao para continuar: \n"
                     + "1 - Inserir \n"
                     + "2 - Atualizar \n"
                     + "3 - Obter \n"
@@ -244,7 +244,7 @@ public class Client {
 
                     System.out.println("====================================");
                     System.out.println("Atualizar Setor");
-                    System.out.println("Informe o código do Setor");
+                    System.out.println("Informe o codigo do Setor");
                     codigoSetor = Integer.parseInt(s.next().trim());
                     System.out.println("Informe o nome do Setor");
                     nomeSetor = s.next().trim();
@@ -267,7 +267,7 @@ public class Client {
 
                     System.out.println("====================================");
                     System.out.println("Obter Setor");
-                    System.out.println("Informe o código do Setor");
+                    System.out.println("Informe o codigo do Setor");
                     codigoSetor = Integer.parseInt(s.next().trim());
 
                     comando = "GET_SETOR;"
@@ -284,7 +284,7 @@ public class Client {
 
                     System.out.println("====================================");
                     System.out.println("Remover Setor");
-                    System.out.println("Informe o código do Setor");
+                    System.out.println("Informe o codigo do Setor");
                     codigoSetor = Integer.parseInt(s.next().trim());
 
                     comando = "DELETE_SETOR;"
@@ -315,7 +315,7 @@ public class Client {
 
                     System.out.println("====================================");
                     System.out.println("Adicionar Pessoa ao Setor");
-                    System.out.println("Informe o código do Setor");
+                    System.out.println("Informe o codigo do Setor");
                     codigoSetor = Integer.parseInt(s.next().trim());
                     System.out.println("Informe o CPF da Pessoa");
                     cpf = s.next().trim();
@@ -335,7 +335,7 @@ public class Client {
 
                     System.out.println("====================================");
                     System.out.println("Remover Pessoa do Setor");
-                    System.out.println("Informe o código do Setor");
+                    System.out.println("Informe o codigo do Setor");
                     codigoSetor = Integer.parseInt(s.next().trim());
                     System.out.println("Informe o CPF da Pessoa");
                     cpf = s.next().trim();
@@ -356,7 +356,7 @@ public class Client {
                     return;
 
                 default:
-                    System.out.println("Por favor, informe uma opção válida!");
+                    System.out.println("Por favor, informe uma opcao valida!");
                     s.close();
                     editSetor(serverIp, serverPort);
                     return;

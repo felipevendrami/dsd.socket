@@ -37,16 +37,16 @@ public class Server implements ServerObserver {
             Socket conn = null;
             while (true) {
                 try {
-                    System.out.println("Aguardando nova conexão...");
+                    System.out.println("Aguardando nova conexao...");
                     conn = server.accept();
                     System.out.println("Conectado com: " + conn.getInetAddress().getHostAddress());
                     bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     printWriter = new PrintWriter(conn.getOutputStream(), true);
 
-                    System.out.println("Aguardando interação...");
+                    System.out.println("Aguardando interacao...");
                     String msgCliente = bufferedReader.readLine();
                     operacao(utilString(msgCliente));
-                    System.out.println("Conexão fechada.");
+                    System.out.println("Conexao fechada.");
                 } catch (IOException e) {
                     throw new IOException(e.getMessage());
                 } finally {
@@ -99,7 +99,7 @@ public class Server implements ServerObserver {
                     retornaMensagemCliente(e.getMessage());
                 }
             }
-            default -> retornaMensagemCliente("Operação não encontrada.");
+            default -> retornaMensagemCliente("Operacao nao encontrada.");
         }
     }
 

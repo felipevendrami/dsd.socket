@@ -14,7 +14,7 @@ public class PessoaRepository {
         try{
             pessoas.put(pessoa.getCpf(), pessoa);
         } catch (Exception e){
-            throw new Exception("Houve um problema na inserção.");
+            throw new Exception("Houve um problema na insercao.");
         }
     }
 
@@ -22,7 +22,7 @@ public class PessoaRepository {
         if (pessoas.containsKey(pessoa.getCpf())) {
             pessoas.replace(pessoa.getCpf(), pessoa);
         } else {
-            throw new Exception("Pessoa não encontrada.");
+            throw new Exception("Pessoa nao encontrada.");
         }
     }
 
@@ -35,7 +35,7 @@ public class PessoaRepository {
                 }
                 pessoas.remove(cpf);
             } else
-                throw new Exception("Pessoa não encontrada.");
+                throw new Exception("Pessoa nao encontrada.");
         } else {
             throw new Exception("Sem pessoas cadastradas.");
         }
@@ -46,7 +46,7 @@ public class PessoaRepository {
             if (pessoas.containsKey(cpf)) {
                 return pessoas.get(cpf);
             } else {
-                throw new Exception("Pessoa não encontrada.");
+                throw new Exception("Pessoa nao encontrada.");
             }
         } else {
             throw new Exception("Sem pessoas cadastradas.");

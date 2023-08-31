@@ -7,15 +7,15 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) throws Exception {
-
+    	
         Server server = new Server();
 
         // POPULAR LISTAS
-        server.popularListas("insert;111;Mário Costa;Av Araújo");
-        server.popularListas("insert;222;Paulo Sérgio;Rua Tiradentes");
+        server.popularListas("insert;111;Mario Costa;Av Araujo");
+        server.popularListas("insert;222;Paulo Sergio;Rua Tiradentes");
         server.popularListas("insert;333;Ana Paula;Rua Cuba");
         server.popularListas("insert;123;Marcos Ruan;Rua 25 de Julho");
-        server.popularListas("insert;456;José Silva;Av Oliveira");
+        server.popularListas("insert;456;Jose Silva;Av Oliveira");
         server.popularListas("insert_setor;Desenvolvimento;Subdevs");
         server.popularListas("insert_setor;Suporte;Subdevs");
         server.popularListas("insert_setor;Comercial;SS Marketing");
