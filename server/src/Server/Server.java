@@ -54,8 +54,9 @@ public class Server implements ServerObserver {
                 }
             }
         } catch (IOException e) {
-            retornaMensagemCliente("Ocorreu erro no servidor.");
-            e.printStackTrace();
+            System.out.println("Log de erro: \n" + e.getMessage());
+            System.out.println("Cliente foi desconectado.");
+            start();
         }
     }
 
@@ -112,8 +113,8 @@ public class Server implements ServerObserver {
     @Override
     public void retornaMensagemCliente(String mensagem) {
         if (this.printWriter != null){
-            System.out.println(mensagem);
-            printWriter.println(mensagem);  // DESCOMENTAR PARA MANDAR MENSAGEM AO CLIENT
+            System.out.println("Log: \n" + mensagem);
+            printWriter.println(mensagem);
         }
     }
 }
