@@ -45,7 +45,9 @@ public class Server implements ServerObserver {
 
                     System.out.println("Aguardando interacao...");
                     String msgCliente = bufferedReader.readLine();
-                    operacao(utilString(msgCliente));
+                    if(msgCliente != null) {
+                        operacao(utilString(msgCliente));
+                    }
                     System.out.println("Conexao fechada.");
                 } catch (IOException e) {
                     throw new IOException(e.getMessage());
@@ -113,7 +115,7 @@ public class Server implements ServerObserver {
     @Override
     public void retornaMensagemCliente(String mensagem) {
         if (this.printWriter != null){
-            System.out.println("Log: \n" + mensagem);
+            System.out.println(mensagem);
             printWriter.println(mensagem);
         }
     }
