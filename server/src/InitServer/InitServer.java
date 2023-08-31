@@ -20,6 +20,7 @@ public class InitServer {
         server.popularListas("add;2;123");
         server.popularListas("add;1;456");
 
+        server.setPort();
         server.start();
     }
 }

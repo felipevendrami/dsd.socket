@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Scanner;
 
 public class Server implements ServerObserver {
@@ -19,18 +18,22 @@ public class Server implements ServerObserver {
     private SetorController setorController;
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
+    private int serverPort = 0;
 
     public Server() {
         this.pessoaController = new PessoaController(this);
         this.setorController = new SetorController(this);
     }
 
+    public void setPort() {
+        Scanner s = new Scanner(System.in);
+        s.useDelimiter("\n");
+        System.out.println("Por favor, informe a porta para inicializar o servidor");
+        serverPort = Integer.parseInt(s.next().trim());
+    }
+
     public void start() throws IOException {
         try {
-            Scanner s = new Scanner(System.in);
-            s.useDelimiter("\n");
-            System.out.println("Por favor, informe a porta para inicializar o servidor");
-            int serverPort = Integer.parseInt(s.next().trim());
 
             ServerSocket server = new ServerSocket(serverPort);
             server.setReuseAddress(true);
