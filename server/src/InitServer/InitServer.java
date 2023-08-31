@@ -1,8 +1,8 @@
-package App;
+package InitServer;
 
 import Server.Server;
 
-public class App {
+public class InitServer {
 
     public static void main(String[] args) throws Exception {
 
