@@ -1,5 +1,6 @@
-import Server.Server;
+package App;
 
+import Server.Server;
 import java.io.IOException;
 import java.util.Scanner;
 

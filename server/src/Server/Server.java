@@ -30,7 +30,7 @@ public class Server implements ServerObserver {
             Scanner s = new Scanner(System.in);
             s.useDelimiter("\n");
             System.out.println("Por favor, informe a porta para inicializar o servidor");
-            int serverPort = s.nextInt();
+            int serverPort = Integer.parseInt(s.next().trim());
 
             ServerSocket server = new ServerSocket(serverPort);
             server.setReuseAddress(true);

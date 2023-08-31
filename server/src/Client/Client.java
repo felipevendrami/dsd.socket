@@ -17,7 +17,7 @@ public class Client {
             System.out.println("Por favor, informe o IP do servidor");
             String serverIp = s.next();
             System.out.println("Por favor, informe a porta do servidor");
-            int serverPort = s.nextInt();
+            int serverPort = Integer.parseInt(s.next().trim());
 
             executaCliente(serverIp, serverPort);
 
@@ -36,7 +36,7 @@ public class Client {
                 + "3 - Voltar"
         );
 
-        int option = s.nextInt();
+        int option = Integer.parseInt(s.next().trim());
 
         switch (option) {
             case 1:
@@ -80,7 +80,7 @@ public class Client {
                     + "6 - Voltar \n"
             );
 
-            int opcao = s.nextInt();
+            int opcao = Integer.parseInt(s.next().trim());
 
             switch (opcao) {
                 case 1:
@@ -216,7 +216,7 @@ public class Client {
                     + "8 - Voltar \n"
             );
 
-            int opcao = s.nextInt();
+            int opcao = Integer.parseInt(s.next().trim());
 
             switch (opcao) {
                 case 1:
@@ -245,7 +245,7 @@ public class Client {
                     System.out.println("====================================");
                     System.out.println("Atualizar Setor");
                     System.out.println("Informe o código do Setor");
-                    codigoSetor = s.nextInt();
+                    codigoSetor = Integer.parseInt(s.next().trim());
                     System.out.println("Informe o nome do Setor");
                     nomeSetor = s.next().trim();
                     System.out.println("Informe o nome da Empresa");
@@ -268,7 +268,7 @@ public class Client {
                     System.out.println("====================================");
                     System.out.println("Obter Setor");
                     System.out.println("Informe o código do Setor");
-                    codigoSetor = s.nextInt();
+                    codigoSetor = Integer.parseInt(s.next().trim());
 
                     comando = "GET_SETOR;"
                             + codigoSetor;
@@ -285,7 +285,7 @@ public class Client {
                     System.out.println("====================================");
                     System.out.println("Remover Setor");
                     System.out.println("Informe o código do Setor");
-                    codigoSetor = s.nextInt();
+                    codigoSetor = Integer.parseInt(s.next().trim());
 
                     comando = "DELETE_SETOR;"
                             + codigoSetor;
@@ -316,7 +316,7 @@ public class Client {
                     System.out.println("====================================");
                     System.out.println("Adicionar Pessoa ao Setor");
                     System.out.println("Informe o código do Setor");
-                    codigoSetor = s.nextInt();
+                    codigoSetor = Integer.parseInt(s.next().trim());
                     System.out.println("Informe o CPF da Pessoa");
                     cpf = s.next().trim();
 
@@ -336,7 +336,7 @@ public class Client {
                     System.out.println("====================================");
                     System.out.println("Remover Pessoa do Setor");
                     System.out.println("Informe o código do Setor");
-                    codigoSetor = s.nextInt();
+                    codigoSetor = Integer.parseInt(s.next().trim());
                     System.out.println("Informe o CPF da Pessoa");
                     cpf = s.next().trim();
 
