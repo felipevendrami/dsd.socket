@@ -1,16 +1,13 @@
 package App;
 
 import Server.Server;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
-    	
+
         Server server = new Server();
 
-        // POPULAR LISTAS
         server.popularListas("insert;111;Mario Costa;Av Araujo");
         server.popularListas("insert;222;Paulo Sergio;Rua Tiradentes");
         server.popularListas("insert;333;Ana Paula;Rua Cuba");

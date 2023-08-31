@@ -27,9 +27,10 @@ public class ClientConnetion {
     }
 
     public void getInputMsg() throws IOException {
-        do {
-            System.out.println(this.input.readLine());
-        } while (this.input.readLine() != null);
+        String msg;
+        while ((msg = this.input.readLine()) != null){
+            System.out.println(msg);
+        }
     }
 
     public void closeConnection() throws IOException {
