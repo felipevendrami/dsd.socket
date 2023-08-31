@@ -57,12 +57,13 @@ public class Client {
     private static void editPessoa(String serverIp, int serverPort) throws IOException {
 
         ClientConnetion conn = new ClientConnetion();
-        conn.getConnection(serverIp, serverPort);
 
         Scanner s = new Scanner(System.in);
         s.useDelimiter("\n");
 
         do {
+            conn.getConnection(serverIp, serverPort);
+
             String cpf;
             String nome;
             String endereco;
@@ -158,11 +159,14 @@ public class Client {
                     break;
 
                 case 6:
+                    conn.getConnection(serverIp, serverPort);
                     executaCliente(serverIp, serverPort);
                     return;
 
                 default:
                     System.out.println("Por favor, informe uma opcao valida!");
+                    conn.getConnection(serverIp, serverPort);
+
                     editPessoa(serverIp, serverPort);
                     return;
             }
@@ -172,12 +176,13 @@ public class Client {
     private static void editSetor(String serverIp, int serverPort) throws IOException {
 
         ClientConnetion conn = new ClientConnetion();
-        conn.getConnection(serverIp, serverPort);
 
         Scanner s = new Scanner(System.in);
         s.useDelimiter("\n");
 
         do {
+            conn.getConnection(serverIp, serverPort);
+
             String cpf;
             String nomeSetor;
             String nomeEmpresa;
@@ -311,11 +316,13 @@ public class Client {
                     break;
 
                 case 8:
+                    conn.closeConnection();
                     executaCliente(serverIp, serverPort);
                     return;
 
                 default:
                     System.out.println("Por favor, informe uma opcao valida!");
+                    conn.closeConnection();
                     editSetor(serverIp, serverPort);
                     return;
             }
