@@ -23,20 +23,6 @@ public class App {
         server.popularListas("add;2;123");
         server.popularListas("add;1;456");
 
-        server.start(); //DESCONMENTAR PARA LIGAR O SERVIDOR
-
-        // PARA TESTES, DELETAR ANTES DA ENTREGA
-//        Scanner scan = new Scanner(System.in);
-//        while (true){
-//            try{
-//                System.out.print("Digite a operação: ");
-//                String entrada = scan.nextLine();
-//                server.popularListas(entrada);
-//            } catch (Exception e){
-//                System.out.println(e.getMessage());
-//                e.printStackTrace();
-//            }
-//        }
-
+        server.start();
     }
 }

@@ -30,7 +30,7 @@ public class Client {
         Scanner s = new Scanner(System.in);
         s.useDelimiter("\n");
 
-        System.out.println("Escolha uma opção para continuar: \n"
+        System.out.println("Escolha uma opcao para continuar: \n"
                 + "1 - Pessoa \n"
                 + "2 - Setor \n"
                 + "3 - Voltar"
@@ -49,7 +49,7 @@ public class Client {
                 menuInicial();
                 break;
             default:
-                System.out.println("Por favor, informe uma opção valida!");
+                System.out.println("Por favor, informe uma opcao valida!");
                 executaCliente(serverIp, serverPort);
 
             s.close();
@@ -71,7 +71,7 @@ public class Client {
 
             System.out.println("====================================");
             System.out.println("Manutencao de Pessoa");
-            System.out.println("Selecione uma opção para continuar: \n"
+            System.out.println("Selecione uma opcao para continuar: \n"
                     + "1 - Inserir \n"
                     + "2 - Atualizar \n"
                     + "3 - Obter \n"
