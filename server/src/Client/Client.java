@@ -159,14 +159,13 @@ public class Client {
                     break;
 
                 case 6:
-                    conn.getConnection(serverIp, serverPort);
+                    conn.closeConnection();
                     executaCliente(serverIp, serverPort);
                     return;
 
                 default:
                     System.out.println("Por favor, informe uma opcao valida!");
-                    conn.getConnection(serverIp, serverPort);
-
+                    conn.closeConnection();
                     editPessoa(serverIp, serverPort);
                     return;
             }

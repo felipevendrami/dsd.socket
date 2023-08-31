@@ -34,7 +34,7 @@ public class ClientConnetion {
     }
 
     public void closeConnection() throws IOException {
-        if (this.connection != null){
+        if (!this.connection.isClosed()){
             this.connection.close();
         }
     }
